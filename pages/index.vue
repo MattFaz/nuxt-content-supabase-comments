@@ -1,20 +1,14 @@
 <script setup>
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-
 const username = ref('')
+const client = useSupabase();
 
-onMounted(async () => {
-    watchEffect(async () => {
-        if (user.value) {
-            const { data } = await client.from("profiles").select("username")
-            username.value = data[0].username
-        } else {
-            username.value = ''
-        }
-    })
-})
-
+const { data: { session } } = await client.auth.getSession();
+if (session?.user) {
+    const { data } = await client.from("profiles").select("username");
+    username.value = data[0].username
+} else {
+    username.value = ''
+}
 </script>
 
 <template>

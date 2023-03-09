@@ -1,6 +1,7 @@
 <script setup>
-const user = useSupabaseUser()
-const client = useSupabaseAuthClient()
+// const user = useSupabaseUser()
+// const client = useSupabaseAuthClient()
+const client = useSupabase()
 
 const loggedIn = ref(false)
 
@@ -8,20 +9,19 @@ const logout = async () => {
     try {
         const { error } = await client.auth.signOut()
         if (error) throw error;
-        console.log('Signed out')
-        user.value = null;
+        window.location.href = "/"
     } catch (error) {
         console.error(error)
     }
 }
 
-watchEffect(() => {
-    if (user.value) {
-        loggedIn.value = true
-    } else {
-        loggedIn.value = false
-    }
-})
+const { data: { session } } = await client.auth.getSession();
+if (session?.user) {
+    loggedIn.value = true
+} else {
+    loggedIn.value = false
+}
+
 
 </script>
 

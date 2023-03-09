@@ -1,6 +1,5 @@
 <script setup>
-const client = useSupabaseClient()
-const user = useSupabaseUser()
+const client = useSupabase()
 const uuid = ref(null)
 const comments = ref([])
 const newComment = ref('')
