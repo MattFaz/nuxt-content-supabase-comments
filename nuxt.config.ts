@@ -10,5 +10,14 @@ export default defineNuxtConfig({
     },
     tailwindcss: {
         // https://tailwindcss.nuxtjs.org/getting-started/options
-    }
+    },
+    dir: {
+        public: "public"
+    },
+    runtimeConfig: {
+        public: {
+            SUPABASE_URL: process.env.SUPABASE_URL,
+            SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+        },
+    },
 })
