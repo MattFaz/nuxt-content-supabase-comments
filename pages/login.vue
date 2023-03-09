@@ -1,15 +1,13 @@
 <script setup lang="ts">
-const loading = ref(false)
 const email = ref("")
 const password = ref("")
 const username = ref("")
 const isSignUp = ref(false)
 
-const client = useSupabaseAuthClient()
+const client = useSupabase();
 
 const signUp = async () => {
     try {
-        // loading.value = true
         const { data, error } = await client.auth.signUp({
             email: email.value,
             password: password.value,
@@ -24,14 +22,11 @@ const signUp = async () => {
         alert("Check your email to confirm account!")
     } catch (error) {
         console.error(error)
-    } finally {
-        // loading.value = false;
     }
 }
 
 const login = async () => {
     try {
-        // loading.value = true
         const { data, error } = await client.auth.signInWithPassword({
             email: email.value,
             password: password.value,
@@ -41,7 +36,8 @@ const login = async () => {
     } catch (error) {
         console.error(error)
     } finally {
-        navigateTo("/")
+        // navigateTo("/")
+        window.location.href = "/"
     }
 }
 
