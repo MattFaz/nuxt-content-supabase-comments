@@ -52,11 +52,11 @@ const login = async () => {
         <form action="" @submit.prevent="() => (isSignUp ? signUp() : login())"
             class="flex flex-col gap-2 py-2 w-3/4 mx-auto">
             <label class="text-center font-semibold">Email:</label>
-            <input type="email" placeholder="email" class="p-2 bg-gray-200 rounded-lg">
+            <input v-model="email" type="email" placeholder="email" class="p-2 bg-gray-200 rounded-lg">
             <label class="text-center font-semibold">Password:</label>
-            <input type="password" placeholder="password" class="p-2 bg-gray-200 rounded-lg">
+            <input v-model="password" type="password" placeholder="password" class="p-2 bg-gray-200 rounded-lg">
             <label v-if="isSignUp" class="text-center font-semibold">Username:</label>
-            <input v-if="isSignUp" type="text" placeholder="username" class="p-2 bg-gray-200 rounded-lg">
+            <input v-model="username" v-if="isSignUp" type="text" placeholder="username" class="p-2 bg-gray-200 rounded-lg">
             <div class="inline-flex justify-center">
                 <button type="submit" class="p-2 text-white bg-green-500 rounded-lg w-1/2 items-center">
                     <span v-if="isSignUp">Sign up</span>
