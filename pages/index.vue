@@ -1,20 +1,5 @@
 <script setup>
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-
-const username = ref('')
-
-onMounted(async () => {
-    watchEffect(async () => {
-        if (user.value) {
-            const { data } = await client.from("profiles").select("username")
-            username.value = data[0].username
-        } else {
-            username.value = ''
-        }
-    })
-})
-
+    const user = useSupabaseUser()
 </script>
 
 <template>
@@ -23,7 +8,7 @@ onMounted(async () => {
             <div class="mx-auto max-w-7xl">
                 <div class="mb-2 text-center">
                     <label class="text-lg font-semibold">
-                        <span v-if="username">Hi {{ username }}, welcome to my blog!</span>
+                        <span v-if="user">Hi {{ user.user_metadata.username }}, welcome to my blog!</span>
                         <span v-else>Welcome to my blog!</span>
                     </label>
                 </div>
