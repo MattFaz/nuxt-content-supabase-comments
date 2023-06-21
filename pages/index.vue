@@ -1,35 +1,22 @@
 <script setup>
-    const user = useSupabaseUser()
+const { data: posts } = await useAsyncData('posts', () => queryContent('/blog').find())
+const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: '2-digit' }
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
 </script>
 
 <template>
-    <ContentList path="/blog" v-slot="{ list }">
-        <div class="p-6 lg:px-8">
-            <div class="mx-auto max-w-7xl">
-                <div class="mb-2 text-center">
-                    <label class="text-lg font-semibold">
-                        <span v-if="user">Hi {{ user.user_metadata.username }}, welcome to my blog!</span>
-                        <span v-else>Welcome to my blog!</span>
-                    </label>
-                </div>
-
-                <div class="grid max-w-lg gap-5 mx-auto lg:grid-cols-3 lg:max-w-none">
-                    <nuxt-link :href="article._path" v-for="article in list" :key="article._path"
-                        class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-                        <div class="flex-shrink-0">
-                            <img class="object-cover w-full h-48" :src="article.img" :alt="article.title">
-                        </div>
-                        <div class="flex flex-col bg-white p-2">
-                            <a href="#" class="block mt-2">
-                                <p class="text-xl font-semibold text-neutral-600">{{ article.title }}</p>
-                                <p class="mt-3 text-base text-gray-500">{{ article.description.split(" ").slice(0,
-                                    20).join(" ") }}...</p>
-                            </a>
-                            <time datetime="2020-03-16" class="text-sm text-gray-500"> {{ article.date }} </time>
-                        </div>
-                    </nuxt-link>
-                </div>
-            </div>
+    <main class="p-6 mx-auto lg:max-w-7xl">
+        <div class="grid gap-5 lg:grid-cols-3">
+            <nuxt-link v-for="post in posts" :to="post._path" class="bg-white p-2 rounded-lg flex flex-col space-y-2">
+                <img :src="post.img" :alt="post.title" class="object-cover  h-48 rounded-t-lg">
+                <span class="text-xl text-gray-800 font-bold">{{ post.title }}</span>
+                <span class="grow text-gray-500">{{ post.description.split(" ").slice(0, 20).join(" ")
+                }}</span>
+                <span class="text-sm text-gray-400">Published: {{ formatDate(post.date) }}</span>
+                <span class="text-sm text-blue-400">[Read More...]</span>
+            </nuxt-link>
         </div>
-    </ContentList>
+    </main>
 </template> 

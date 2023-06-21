@@ -31,7 +31,7 @@ const submitComment = async () => {
 </script>
 
 <template>
-    <div>
+    <main>
         <div class="flex flex-col m-4 sm:mx-auto max-w-7xl bg-white rounded-lg overflow-hidden prose">
             <div class="flex-shrink-0">
                 <img class="object-cover w-full m-0" :src="data.img" :alt="data.title">
@@ -64,6 +64,6 @@ const submitComment = async () => {
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
   
