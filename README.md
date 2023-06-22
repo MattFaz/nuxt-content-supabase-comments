@@ -10,11 +10,11 @@ The primay purpose of this is to enable comments on a SSG blog. As such it inclu
 
 ## TODO:
 
-- [ ] Allow users to submit comments
-- [ ] Determine why comments are only loading locally
-- [ ] Nested comments
-
-## Notes
+- [x] ~~Display comments~~
+- [x] ~~Allow users to submit comments~~
+- [ ] Determine why comments don't load when browsing directly to post
+- [ ] Append new comment to comments when successfully submitted _(i.e. avoid reloading)_
+- [ ] Reply / Nested comments
 
 ## Setup
 

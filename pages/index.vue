@@ -1,9 +1,6 @@
 <script setup>
+import { formatDate } from '#imports'
 const { data: posts } = await useAsyncData('posts', () => queryContent('/blog').find())
-const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: '2-digit' }
-    return new Date(dateString).toLocaleDateString(undefined, options);
-}
 </script>
 
 <template>
@@ -13,9 +10,9 @@ const formatDate = (dateString) => {
                 <img :src="post.img" :alt="post.title" class="object-cover  h-48 rounded-t-lg">
                 <span class="text-xl text-gray-800 font-bold">{{ post.title }}</span>
                 <span class="grow text-gray-500">{{ post.description.split(" ").slice(0, 20).join(" ")
-                }}</span>
+                }}... <span class="text-sm text-blue-400">Read More</span></span>
                 <span class="text-sm text-gray-400">Published: {{ formatDate(post.date) }}</span>
-                <span class="text-sm text-blue-400">[Read More...]</span>
+
             </nuxt-link>
         </div>
     </main>

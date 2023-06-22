@@ -8,6 +8,7 @@ const logout = async () => {
         if (error) throw error;
         console.log('Signed out')
         user.value = null;
+        client.value = null;
     } catch (error) {
         console.error(error)
     }
